@@ -3,54 +3,54 @@ import requests
 import re
 from lxml import html
 import json
-class scraping:
-    def scraping_m():
-        # URLs de las páginas
-        urls = [
-            "https://www.tiendafractalis.com/marca-fractalis",
-            "https://www.tiendafractalis.com/marca-fractalis?page=2&count=24",
-            "https://www.tiendafractalis.com/marca-fractalis?page=3&count=24"
-        ]
 
-        # Encabezado de la petición
-        headers = {
-            "user-agent": "https://explore.whatismybrowser.com/useragents/parse/?analyse-my-user-agent=yes"
-        }
+def scraping_m():
+    # URLs de las páginas
+    urls = [
+        "https://www.tiendafractalis.com/marca-fractalis",
+        "https://www.tiendafractalis.com/marca-fractalis?page=2&count=24",
+        "https://www.tiendafractalis.com/marca-fractalis?page=3&count=24"
+    ]
 
-        # Lista para almacenar los productos extraídos
-        productos = []
+    # Encabezado de la petición
+    headers = {
+        "user-agent": "https://explore.whatismybrowser.com/useragents/parse/?analyse-my-user-agent=yes"
+    }
 
-        # Bucle para iterar por cada URL
-        for url in urls:
-            # Obtener el contenido HTML de la página
-            response = requests.get(url, headers=headers)
-            datahtml = response.text
+    # Lista para almacenar los productos extraídos
+    productos = []
 
-            # Convertir el HTML a un objeto lxml
-            finder = html.fromstring(datahtml)
+    # Bucle para iterar por cada URL
+    for url in urls:
+        # Obtener el contenido HTML de la página
+        response = requests.get(url, headers=headers)
+        datahtml = response.text
 
-            # Extraer elementos con data-producto usando XPath
-            data_productos = finder.xpath('//div[@itemtype="http://schema.org/Product"]/@data-producto')
+        # Convertir el HTML a un objeto lxml
+        finder = html.fromstring(datahtml)
 
-            # Procesar cada elemento data-producto
-            for data_producto in data_productos:
-                # Convertir comillas simples a dobles
-                data_producto_con_dobles = re.sub("'", '"', data_producto)
+        # Extraer elementos con data-producto usando XPath
+        data_productos = finder.xpath('//div[@itemtype="http://schema.org/Product"]/@data-producto')
 
-                # Decodificar el JSON
-                producto = json.loads(data_producto_con_dobles)
+        # Procesar cada elemento data-producto
+        for data_producto in data_productos:
+            # Convertir comillas simples a dobles
+            data_producto_con_dobles = re.sub("'", '"', data_producto)
 
-                # Extraer y almacenar la información deseada
-                nombre = producto["name"].split("(")[0]
-                # ... Puedes extraer otras propiedades como id, precio, etc.
+            # Decodificar el JSON
+            producto = json.loads(data_producto_con_dobles)
 
-                # Agregar el producto a la lista de productos
-                productos.append({
-                    "nombre": nombre,
-                    # ... Añade otras propiedades extraídas
-                })
+            # Extraer y almacenar la información deseada
+            nombre = producto["name"].split("(")[0]
+            # ... Puedes extraer otras propiedades como id, precio, etc.
 
-        # Imprimir los nombres de los productos extraídos
-        
-        return producto["nombre"]
+            # Agregar el producto a la lista de productos
+            productos.append({
+                "nombre": nombre,
+                # ... Añade otras propiedades extraídas
+            })
+
+    # Imprimir los nombres de los productos extraídos
+    
+    return productos
         
