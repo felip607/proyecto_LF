@@ -75,48 +75,58 @@ def menu():
         print("2) salir")
         opcion = input()
         if opcion == '1':
-            
-            clasificar()
-            print("seleccione una opcion")
-            print("1) ver resultados")
-            print("2) guardar en json")
-            opcion2 = input()
-            if opcion2 =='1':
-                
-                print("RESULTADOS")
-                print("hoodies")
-                for prod in categorias[0]:
-                    print(prod['nombre'])
-                print("------------------------")
-                print("chaquetas")
-                for prod in categorias[1]:
-                    print(prod['nombre'])
-                print("------------------------")
-                print("cardigan")
-                for prod in categorias[2]:
-                    print(prod['nombre'])
-                print("------------------------")
-                print("camisas_camibusos")
-                for prod in categorias[3]:
-                    print(prod['nombre'])
-                print("------------------------")
-                print("pantalones")
-                for prod in categorias[4]:
-                    print(prod['nombre'])
-                print("------------------------")
-                print("joggers")
-                for prod in categorias[5]:
-                    print(prod['nombre'])
-                print("------------------------")
-                print("otros")
-                for prod in categorias[6]:
-                    print(prod['nombre'])
-                print("------------------------")
-            elif opcion2=='2':
-                print("jsons guardados")
-                guardar_json(productos)
-            else:
-                print("atras")
+            op2=True
+            while (op2) :
+                clasificar()
+                print("seleccione una opcion")
+                print("1) ver productos")
+                print("2) ver productos clasificados")
+                print("3) guardar en json")
+                opcion2 = input()
+                if opcion2 == '1':
+                    print("PRODUCTOS")
+                    print("------------------------")
+                    for prod in productos:
+                        print(prod['nombre'])
+                    print("------------------------")
+                elif opcion2 =='2':
+                    
+                    print("RESULTADOS")
+                    print("------------------------")
+                    print("hoodies")
+                    for prod in categorias[0]:
+                        print(prod['nombre'])
+                    print("------------------------")
+                    print("chaquetas")
+                    for prod in categorias[1]:
+                        print(prod['nombre'])
+                    print("------------------------")
+                    print("cardigan")
+                    for prod in categorias[2]:
+                        print(prod['nombre'])
+                    print("------------------------")
+                    print("camisas_camibusos")
+                    for prod in categorias[3]:
+                        print(prod['nombre'])
+                    print("------------------------")
+                    print("pantalones")
+                    for prod in categorias[4]:
+                        print(prod['nombre'])
+                    print("------------------------")
+                    print("joggers")
+                    for prod in categorias[5]:
+                        print(prod['nombre'])
+                    print("------------------------")
+                    print("otros")
+                    for prod in categorias[6]:
+                        print(prod['nombre'])
+                    print("------------------------")
+                elif opcion2=='3':
+                    print("jsons guardados")
+                    guardar_json(productos)
+                else:
+                    op2=False
+                    print("atras")
                 
         else:    
             print("salientdo")
